@@ -2,21 +2,23 @@
 <table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
     <meta>
         <author>Wells</author>
-        <description>Fetches company filings from SEC.gov</description>
+        <description>Fetches company filings from SEC.gov via Atom feed.</description>
         <documentationURL>http://www.sec.gov</documentationURL>
         <sampleQuery>select * from {table} where q="XOM"</sampleQuery>
+        <sampleQuery>select * from {table} where q="0000034088" and count="12" and type="10-k"</sampleQuery>
+        <sampleQuery>select * from {table} where q="IBM" and owner="include"</sampleQuery>
     </meta>
     <bindings>
-        <select itemPath="companyFilings.results" produces="XML">
+        <select itemPath="feed.entry" produces="XML">
             <urls>
                 <url>http://www.sec.gov/cgi-bin/browse-edgar</url>
             </urls>
             <inputs>
                 <key id="CIK" as="q" type="xs:string" paramType="query" required="true" />
-                <key id="type" type="xs:string" paramType="query" />
-                <key id="count" type="xs:integer" paramType="query" default="100" />
+                <key id="type" type="xs:string" paramType="query" required="false" />
+                <key id="count" type="xs:integer" paramType="query" default="20" />
                 <key id="owner" type="xs:string" paramType="query" default="exclude" />
-                <key id="output" type="xs:string" paramType="query" const="true" default="xml" />
+                <key id="output" type="xs:string" paramType="query" const="true" default="atom" />
                 <key id="action" type="xs:string" paramType="query" const="true" default="getcompany" />
             </inputs>
         </select>
