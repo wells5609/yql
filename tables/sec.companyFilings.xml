@@ -3,10 +3,11 @@
     <meta>
         <author>Wells</author>
         <description>Fetches company filings from SEC.gov via Atom feed.</description>
-        <documentationURL>http://www.sec.gov</documentationURL>
+        <documentationURL>http://www.sec.gov/edgar/searchedgar/companysearch.html</documentationURL>
         <sampleQuery>select * from {table} where q="XOM"</sampleQuery>
-        <sampleQuery>select * from {table} where q="0000034088" and count="12" and type="10-k"</sampleQuery>
-        <sampleQuery>select * from {table} where q="IBM" and owner="include"</sampleQuery>
+        <sampleQuery>select * from {table} where q="0000034088" and count="10" and type="10-k"</sampleQuery>
+        <sampleQuery>select * from {table} where q="IBM" and owner="include" dateb="20120131"</sampleQuery>
+        <sampleQuery>select * from {table} where q="IBM" and owner="only"</sampleQuery>
     </meta>
     <bindings>
         <select itemPath="feed.entry" produces="XML">
@@ -18,6 +19,7 @@
                 <key id="type" type="xs:string" paramType="query" required="false" />
                 <key id="count" type="xs:integer" paramType="query" default="20" />
                 <key id="owner" type="xs:string" paramType="query" default="exclude" />
+                <key id="dateb" type="xs:string" paramType="query" required="false" />
                 <key id="output" type="xs:string" paramType="query" const="true" default="atom" />
                 <key id="action" type="xs:string" paramType="query" const="true" default="getcompany" />
             </inputs>
